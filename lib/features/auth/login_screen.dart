@@ -46,11 +46,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         statusBarIconBrightness: Brightness.dark,
       ),
       child: CupertinoPageScaffold(
-        backgroundColor: const Color(0xFFF5F7FA), // Light background color from design
+        backgroundColor: const Color(
+          0xFFF5F7FA,
+        ), // Light background color from design
         child: SafeArea(
           child: Center(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.only(left: 24.0, right: 24.0, bottom: 60.0),
+              padding: const EdgeInsets.only(
+                left: 24.0,
+                right: 24.0,
+                bottom: 60.0,
+              ),
               child: Form(
                 key: _formKey,
                 child: Column(
@@ -63,11 +69,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     _buildPhoneInput(),
                     const SizedBox(height: 16),
                     _buildVerificationInput(),
-                    const SizedBox(height: 32),
+                    const SizedBox(height: 36),
                     _buildLoginButton(),
-                    const SizedBox(height: 40),
-                    _buildFooter(),
                     const SizedBox(height: 20),
+                    _buildFooter(),
+                    const SizedBox(height: 80),
                   ],
                 ),
               ),
@@ -152,16 +158,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             borderRadius: BorderRadius.circular(12),
             border: Border.all(color: const Color(0xFFE5E7EB)),
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: Row(
             children: [
-              // Country Code
+              // Country Code with Flag
               GestureDetector(
                 onTap: () {
                   // TODO: Show country picker
                 },
                 child: Row(
                   children: [
+                    const Text('🇨🇳', style: TextStyle(fontSize: 20)),
+                    const SizedBox(width: 8),
                     Text(
                       '+86',
                       style: GoogleFonts.inter(
@@ -188,7 +196,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               Expanded(
                 child: CupertinoTextField(
                   controller: _phoneController,
-                  placeholder: '138 0000 0000',
+                  placeholder: 'Mobile number',
                   placeholderStyle: GoogleFonts.inter(
                     color: const Color(0xFFA1A6B3),
                     fontSize: 16,
@@ -224,62 +232,49 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           ),
         ),
         const SizedBox(height: 8),
-        IntrinsicHeight(
+        Container(
+          decoration: BoxDecoration(
+            color: CupertinoColors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: const Color(0xFFE5E7EB)),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: CupertinoColors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: const Color(0xFFE5E7EB)),
+                child: CupertinoTextField(
+                  controller: _codeController,
+                  placeholder: 'Code',
+                  placeholderStyle: GoogleFonts.inter(
+                    color: const Color(0xFFA1A6B3),
+                    fontSize: 16,
                   ),
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                  child: Row(
-                    children: [
-                      // Removed Icon
-                      Expanded(
-                        child: CupertinoTextField(
-                          controller: _codeController,
-                          placeholder: 'Code',
-                          placeholderStyle: GoogleFonts.inter(
-                            color: const Color(0xFFA1A6B3),
-                            fontSize: 16,
-                          ),
-                          style: GoogleFonts.inter(
-                            color: const Color(0xFF1A1D26),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          decoration: null,
-                          keyboardType: TextInputType.number,
-                          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                        ),
-                      ),
-                    ],
+                  style: GoogleFonts.inter(
+                    color: const Color(0xFF1A1D26),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
                   ),
+                  decoration: null,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 ),
               ),
-              const SizedBox(width: 16),
-              Container(
-                decoration: BoxDecoration(
-                  color: CupertinoColors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: const Color(0xFFE9EAF0)),
+              const SizedBox(width: 8),
+              CupertinoButton(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
                 ),
-                child: CupertinoButton(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  onPressed: () {
-                    // TODO: Implement get code
-                  },
-                  child: Text(
-                    'Get Code',
-                    style: GoogleFonts.inter(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: const Color(0xFF6B48FF),
-                    ),
+                minSize: 0,
+                onPressed: () {
+                  // TODO: Implement get code
+                },
+                child: Text(
+                  'Get Code',
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xFF6B48FF),
                   ),
                 ),
               ),
@@ -295,7 +290,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         gradient: const LinearGradient(
-          colors: [Color(0xFF6B48FF), Color(0xFF4C30E6)], // Purple/Blue gradient
+          colors: [
+            Color(0xFF6B48FF),
+            Color(0xFF4C30E6),
+          ], // Purple/Blue gradient
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
         ),
